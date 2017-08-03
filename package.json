@@ -18,8 +18,8 @@
     "react-scripts": "1.0.7"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "server": "node ./src/server/server.js",
+    "start:client": "react-scripts start",
+    "start:server": "node ./src/server/server.js",
     "dev:server": "nodemon ./src/server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
