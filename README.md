@@ -1,7 +1,8 @@
 Vote it! 
 ============
 
-:construction: **beta**
+[![Heroku App](https://img.shields.io/badge/heroku-vote--it-d82271.svg)](https://vote-it-demo.herokuapp.com/)
+![Version](https://img.shields.io/badge/version-beta-yellow.svg)
 
 ## Description
 
@@ -35,4 +36,6 @@ There is a possibility to change the vote.
 
 Voting config could be changed in _./src/server/topics.json_.
 
-App could be greatly improved.
+## P.P.S. 
+
+App deployed on heroku. It also could be greatly improved :relaxed:
