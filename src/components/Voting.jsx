@@ -11,7 +11,12 @@ const VotingContainer = props => (
     <div className='voting'>
       {Object.keys(props.topics).map((id, index) => {
         const topic = props.topics[id];
-        const hasVoted = props.clientVote === id;
+        const voterInfo = props.voters
+          .filter(x => x.id === props.client.id)[0]
+        let hasVoted = false;
+        if (voterInfo) {
+          hasVoted = voterInfo.vote === id
+        }
         return <VoteBtn key={topic.title + index} id={id} hasVoted={hasVoted} vote={props.vote} title={hasVoted ? topic.title + '!' : topic.title} />;
       })}
     </div>
@@ -20,7 +25,8 @@ const VotingContainer = props => (
 
 export default connect(state => ({
   topics: state.topics,
-  clientVote: state.client.vote
+  client: state.client,
+  voters: state.voters,
 }), dispatch => ({
   vote: topicId => dispatch(vote(topicId))
 }))(VotingContainer);

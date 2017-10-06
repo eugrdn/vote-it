@@ -7,7 +7,11 @@ import {
 function reducer(state = { topics: {}, client: {} }, action) {
   switch (action.type) {
     case SET_STATE:
-      return { ...state, topics: { ...action.payload } };
+      return {
+        ...state,
+        topics: { ...action.payload.topics },
+        voters: [ ...action.payload.voters ]
+      };
     case SET_CLIENT_ID:
       return { ...state, client: { id: action.payload } };
     case VOTE:

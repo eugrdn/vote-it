@@ -22,8 +22,8 @@ const store = createStore(
   applyMiddleware(authorizer(socket))
 );
 
-socket.on('state', (topics, prevVote) =>
-  store.dispatch(setState(topics, prevVote)));
+socket.on('state', (state) => 
+  store.dispatch(setState(state)));
 
 store.dispatch(setClientId(getClientId()));
 
