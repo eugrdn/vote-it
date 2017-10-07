@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const ResultsContainer = props => (
-  <div className='voting-result'>
-    <h4 className='voting-title'>What's better?</h4>
+  <div className='voting-result vr'>
+    <h4 className='voting-title'>Here are the results!</h4>
     <br />
     <ul className='voting-list' style={{ listStyleType: 'none', listStylePosition: 'inside' }}>
       {props.topics.map(({ title, votes }) => <li className='voting-item' key={title}>{`${title}:`} <b>{calcPercent(votes, props.votesSum)}%</b></li>)}
     </ul>
-    <small className='all-votes'>All votes : <b>{`${props.votesSum}`}</b></small>
+    <small className='all-votes'>Total : <b>{`${props.votesSum}`}</b></small>
   </div>
 );
 
