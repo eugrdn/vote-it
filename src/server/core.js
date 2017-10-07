@@ -9,26 +9,39 @@ function initTopics(topics) {
   }, {});
 }
 
+// return a changeset to merge with state
 function vote(state, topicId, voterId) {
+  returnSet = {'topics': {}, 'voters': []}
   const voter = state.voters.find(voter => voter.id === voterId);
   if (!voter) {
-    state.topics[topicId].votes++;
-    state.voters.push({ id: voterId, vote: topicId });
+
+    if (!(topicId in returnSet.topics))
+      returnSet.topics[topicId] = {'votes': state.topics[topicId].votes};
+
+    returnSet.topics[topicId].votes++;
+    returnSet.voters.push({ id: voterId, vote: topicId });
   } else if (voter.vote !== topicId) {
-    revote(state, topicId, voter.vote);
-    voter.vote = topicId;
+    returnSet = revote(state, topicId, voter.vote);
+    returnSet.voters.push({ id: voterId, vote: topicId });
   }
-  return state;
+  return returnSet;
 }
 
+// return a changeset to merge with state
 function revote(state, currTopicId, prevTopicId) {
+  returnSet = {'topics': {}, 'voters': []}
   Object.keys(state.topics).map(key => {
+
+    if (!(key in returnSet.topics))
+      returnSet.topics[key] = {'votes': 0};
+
     if (key === currTopicId) {
-      state.topics[key].votes++;
+      returnSet.topics[key].votes++;
     } else if (key === prevTopicId) {
-      state.topics[key].votes--;
+      returnSet.topics[key].votes--;
     }
   });
+  return returnSet;
 }
 
 module.exports = {
