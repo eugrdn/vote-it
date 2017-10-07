@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const ResultsContainer = props => (
-  <div className='voting-result vr'>
+  <div className='voting-result'>
     <h4 className='voting-title'>Here are the results!</h4>
     <br />
     <ul className='voting-list' style={{ listStyleType: 'none', listStylePosition: 'inside' }}>
