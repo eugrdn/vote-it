@@ -11,23 +11,51 @@ function initTopics(topics) {
 
 function vote(state, topicId, voterId) {
   const voter = state.voters.find(voter => voter.id === voterId);
+
   if (!voter) {
-    state.topics[topicId].votes++;
-    state.voters.push({ id: voterId, vote: topicId });
+    const topics = Object.assign({}, state.topics, {
+      [topicId]: Object.assign({}, state.topics[topicId], {
+        votes: state.topics[topicId].votes + 1,
+      }),
+    });
+
+    const voters = state.voters.concat({
+      id: voterId,
+      vote: topicId,
+    });
+
+    return Object.assign({}, state, {
+      topics,
+      voters,
+    })
   } else if (voter.vote !== topicId) {
-    revote(state, topicId, voter.vote);
-    voter.vote = topicId;
+    return Object.assign({}, revote(state, topicId, voter.vote), {
+      voters: state.voters.map(i => {
+        if (i === voter) {
+          return Object.assign({}, voter, {
+            vote: topicId,
+          });
+        }
+
+        return i;
+      })
+    })
   }
   return state;
 }
 
 function revote(state, currTopicId, prevTopicId) {
-  Object.keys(state.topics).map(key => {
-    if (key === currTopicId) {
-      state.topics[key].votes++;
-    } else if (key === prevTopicId) {
-      state.topics[key].votes--;
-    }
+  const topics = Object.assign({}, state.topics, {
+    [currTopicId]: Object.assign({}, state.topics[currTopicId], {
+      votes: state.topics[currTopicId].votes + 1,
+    }),
+    [prevTopicId]: Object.assign({}, state.topics[prevTopicId], {
+      votes: state.topics[prevTopicId].votes - 1,
+    })
+  });
+
+  return Object.assign({}, state, {
+    topics,
   });
 }
 
