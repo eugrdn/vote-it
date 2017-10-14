@@ -20,7 +20,7 @@ export const vote = topicId => ({
 export const authorizer = socket => store => next => action => {
   if (action.remote) {
     const clientId = store.getState().client.id;
-    socket.emit('action', { ...action, clientId });
+    socket.emit('action', {...action, clientId});
   }
   return next(action);
-}
+};

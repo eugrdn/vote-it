@@ -29,17 +29,9 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
-  line-height: 1;
   padding: 0;
   margin: 0;
-  width: 100vh;
-  height: 100vh;
-  color: #fff;
-  background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
-  background-size: 400% 400%;
-  -webkit-animation: Gradient 15s ease infinite;
-  -moz-animation: Gradient 15s ease infinite;
-  animation: Gradient 15s ease infinite;
+  font-family: 'Open Sans';
 }
 
 ol, ul {
@@ -65,10 +57,6 @@ table {
   STYLES
 */
 
-html, body, {
-  min-height: 100%;
-}
-
 #fullscreen-wrapper {
   position: absolute;
   top: 0;
@@ -81,6 +69,18 @@ html, body, {
   display: flex;
   height: 100%;
   width: 100%;
+}
+
+.results-page {
+  line-height: 1;
+  width: 100vw;
+  height: 100vh;
+  color: #fff;
+  background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+  background-size: 400% 400%;
+  -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
 }
 
 .vote__btn {
@@ -167,7 +167,6 @@ html, body, {
 .voting-result {
   display: inline-block;
   padding: 10px;
-  font-family: 'Open Sans';
   border: 4px solid #F2F2F2;
   border-radius: 5px;
   font-size: 20px;

@@ -4,22 +4,25 @@ import {
   VOTE
 } from './actions/vote-it.actions';
 
-function reducer(state = { topics: {}, client: {} }, action) {
+function reducer(state = {topics: {}, client: {}}, action) {
   switch (action.type) {
     case SET_STATE:
       return {
         ...state,
-        topics: { ...action.payload.topics },
-        voters: [ ...action.payload.voters ]
+        topics: {...action.payload.topics},
+        voters: [...action.payload.voters]
       };
     case SET_CLIENT_ID:
-      return { ...state, client: { id: action.payload } };
+      return {...state, client: {id: action.payload}};
     case VOTE:
       return {
         ...state,
         topics: {
           ...state.topics,
-          [action.payload]: { title: state.topics[action.payload].title, votes: state.topics[action.payload].votes++ }
+          [action.payload]: {
+            title: state.topics[action.payload].title,
+            votes: state.topics[action.payload].votes + 1
+          }
         },
         client: {
           ...state.client,
