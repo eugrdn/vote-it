@@ -29,34 +29,26 @@ function vote(state, topicId, voterId) {
       voters,
     })
   } else if (voter.vote !== topicId) {
-    return Object.assign({}, revote(state, topicId, voter.vote), {
-      voters: state.voters.map(i => {
-        if (i === voter) {
-          return Object.assign({}, voter, {
-            vote: topicId,
-          });
-        }
-
-        return i;
-      })
+    return Object.assign({}, state, {
+      topics: revote(state.topics, topicId, voter.vote),
+      voters: state.voters.map(i => (i === voter)
+        ? Object.assign({}, voter, { vote: topicId })
+        : i
+      ),
     })
   }
   return state;
 }
 
-function revote(state, currTopicId, prevTopicId) {
-  const topics = Object.assign({}, state.topics, {
-    [currTopicId]: Object.assign({}, state.topics[currTopicId], {
-      votes: state.topics[currTopicId].votes + 1,
+function revote(topics, currTopicId, prevTopicId) {
+  return Object.assign({}, topics, {
+    [currTopicId]: Object.assign({}, topics[currTopicId], {
+      votes: topics[currTopicId].votes + 1,
     }),
-    [prevTopicId]: Object.assign({}, state.topics[prevTopicId], {
-      votes: state.topics[prevTopicId].votes - 1,
+    [prevTopicId]: Object.assign({}, topics[prevTopicId], {
+      votes: topics[prevTopicId].votes - 1,
     })
-  });
-
-  return Object.assign({}, state, {
-    topics,
-  });
+  })
 }
 
 module.exports = {
