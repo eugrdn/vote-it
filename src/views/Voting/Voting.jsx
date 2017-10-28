@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {vote} from '../actions/vote-it.actions';
+import {vote} from '../../actions/vote-it.actions';
 
 const VoteBtn = ({id, vote, title, hasVoted, topicsCount}) => (
   <button
@@ -12,7 +12,7 @@ const VoteBtn = ({id, vote, title, hasVoted, topicsCount}) => (
   </button>
 );
 
-const VotingContainer = props => (
+const VotingPage = props => (
   <div id="fullscreen-wrapper">
     <div className="voting">
       {Object.keys(props.topics).map((id, index) => {
@@ -37,4 +37,4 @@ const VotingContainer = props => (
 export default connect(
   ({topics, client, voters}) => ({topics, client, voters}),
   dispatch => ({vote: topicId => dispatch(vote(topicId))})
-)(VotingContainer);
+)(VotingPage);

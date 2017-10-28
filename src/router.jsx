@@ -9,12 +9,12 @@ import {
 import {
   Voting,
   Results
-} from './components';
+} from './views';
 
 const router = (
   <Router>
     <Switch>
-      <Route exact path="/vote" component={Voting} />
+      <Route path="/vote" component={Voting} />
       <Route path="/results" component={Results} />
       <Redirect to="/vote" />
     </Switch>
