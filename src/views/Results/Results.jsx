@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-const ResultsContainer = props => (
+const ResultsPage = props => (
   <div className="results-page">
     <div className="voting-result">
       <h4 className="voting-title">Here are the results!</h4>
@@ -40,4 +40,4 @@ const mapStateToProps = ({topics}) => {
   };
 };
 
-export default connect(mapStateToProps)(ResultsContainer);
+export default connect(mapStateToProps)(ResultsPage);
