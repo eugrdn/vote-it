@@ -3,23 +3,18 @@ import {connect} from 'react-redux';
 
 const ResultsPage = props => (
   <div className="results-page">
+    <a href="/vote"><button className="home-button">Home</button></a>
     <div className="voting-result">
       <h4 className="voting-title">Here are the results!</h4>
-
       <br />
-
-      <ul
-        className="voting-list"
-        style={{listStyleType: 'none', listStylePosition: 'inside'}}
-      >
+      <ul className="voting-list" style={{listStyleType: 'none', listStylePosition: 'inside'}}>
         {props.topics.map(({title, votes}) => (
           <li className="voting-item" key={title}>
             {`${title}:`} <b>{calcPercent(votes, props.votesSum)}%</b>
           </li>
         ))}
-      </ul>
-
-      <small className="all-votes">
+      </ul><br />
+      <small className="voting-total all-votes">
         Total : <b>{`${props.votesSum}`}</b>
       </small>
     </div>

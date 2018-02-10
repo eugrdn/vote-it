@@ -3,11 +3,7 @@ import {connect} from 'react-redux';
 import {vote} from '../../actions/vote-it.actions';
 
 const VoteBtn = ({id, vote, title, hasVoted, topicsCount}) => (
-  <button
-    className="vote__btn"
-    onClick={() => vote(id)}
-    disabled={hasVoted}
-  >
+  <button className="vote__btn" onClick={() => vote(id)} disabled={hasVoted}>
     {title}
   </button>
 );
