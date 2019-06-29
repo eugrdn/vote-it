@@ -1,4 +1,9 @@
 {
+  "name": "vote-it",
+  "version": "2.0.0",
+  "description": "Voting app",
+  "main": "index.js",
+  "private": false,
   "scripts": {
     "dev": "next",
     "start": "next start",
@@ -32,5 +37,21 @@
     "prettier": "^1.18.2",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eugrdn/vote-it.git"
+  },
+  "keywords": [
+    "voting",
+    "poll",
+    "vote",
+    "nextjs"
+  ],
+  "author": "Evgeny Rodin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eugrdn/vote-it/issues"
+  },
+  "homepage": "https://github.com/eugrdn/vote-it#readme"
 }
