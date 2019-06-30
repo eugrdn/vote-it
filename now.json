@@ -8,8 +8,5 @@
       "src": "next.config.js",
       "use": "@now/next"
     }
-  ],
-  "config": {
-    "maxLambdaSize": "11mb"
-  }
+  ]
 }
