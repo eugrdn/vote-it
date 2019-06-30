@@ -6,7 +6,40 @@ if (!isProduction) {
   require('dotenv').config();
 }
 
-module.exports = {
+const withAssetRelocator = (nextConfig = {}) =>
+  Object.assign({}, nextConfig, {
+    webpack(config, options) {
+      const {isServer} = options;
+
+      if (isServer) {
+        config.node = Object.assign({}, config.node, {
+          __dirname: false,
+          __filename: false,
+        });
+
+        config.module.rules.unshift({
+          test: /\.(m?js|node)$/,
+          parser: {amd: false},
+          use: {
+            loader: '@zeit/webpack-asset-relocator-loader',
+            options: {
+              outputAssetBase: 'assets',
+              existingAssetNames: [],
+              wrapperCompatibility: true,
+              escapeNonAnalyzableRequires: true,
+            },
+          },
+        });
+      }
+
+      if (typeof nextConfig.webpack === 'function') {
+        return nextConfig.webpack(config, options);
+      }
+      return config;
+    },
+  });
+
+module.exports = withAssetRelocator({
   webpack(config) {
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -19,13 +52,12 @@ module.exports = {
     dynamicRouting: true,
   },
   publicRuntimeConfig: {
-    appId: process.env.APP_ID,
-    apiKey: process.env.API_KEY,
-    authDomain: process.env.AUTH_DOMAIN,
-    databaseURL: process.env.DATABASE_URL,
-    messagingSenderId: process.env.MESSAGING_SENDER_ID,
-    projectId: process.env.PROJECT_ID,
-    storageBucket: process.env.STORAGE_BUCKET,
-    githubLink: process.env.GITHUB_LINK,
+    APP_ID: process.env.APP_ID,
+    API_KEY: process.env.API_KEY,
+    AUTH_DOMAIN: process.env.AUTH_DOMAIN,
+    DATABASE_URL: process.env.DATABASE_URL,
+    MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID,
+    PROJECT_ID: process.env.PROJECT_ID,
+    STORAGE_BUCKET: process.env.STORAGE_BUCKET,
   },
-};
+});

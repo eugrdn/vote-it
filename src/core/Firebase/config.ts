@@ -1,11 +1,10 @@
-
 import {Env} from '~/utils';
 
 export const config = {
-  apiKey: Env.getPublicVar('apiKey'),
-  authDomain: Env.getPublicVar('authDomain'),
-  databaseURL: Env.getPublicVar('databaseURL'),
-  projectId: Env.getPublicVar('projectId'),
-  storageBucket: Env.getPublicVar('storageBucket'),
-  messagingSenderId: Env.getPublicVar('messagingSenderId'),
+  apiKey: Env.getPublicRuntimeVariable('API_KEY'),
+  authDomain: Env.getPublicRuntimeVariable('AUTH_DOMAIN'),
+  databaseURL: Env.getPublicRuntimeVariable('DATABASE_URL'),
+  projectId: Env.getPublicRuntimeVariable('PROJECT_ID'),
+  storageBucket: Env.getPublicRuntimeVariable('STORAGE_BUCKET'),
+  messagingSenderId: Env.getPublicRuntimeVariable('MESSAGING_SENDER_ID'),
 };

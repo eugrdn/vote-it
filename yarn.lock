@@ -1503,6 +1503,13 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@zeit/webpack-asset-relocator-loader@^0.5.7":
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/@zeit/webpack-asset-relocator-loader/-/webpack-asset-relocator-loader-0.5.7.tgz#ee0872ce53ef0085073233c7220d09b40ee2502a"
+  integrity sha512-Udps+rrlqKFVL7/CIvGdi/auCNAjvODSqgbnyiEfKAqokDGZExiarjWwMsVzKBtzHrqVWg7glFl2mTI5hqPpJw==
+  dependencies:
+    sourcemap-codec "^1.4.4"
+
 abab@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"
@@ -2821,7 +2828,7 @@ emojis-list@^2.0.0:
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
   integrity sha1-TapNnbAPmBmIDHn6RXrlsJof04k=
 
-emojis@^1.0.10:
+emojis@1.0.10:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/emojis/-/emojis-1.0.10.tgz#2558133df0dff13313c99531647f693d7adb57da"
   integrity sha1-JVgTPfDf8TMTyZUxZH9pPXrbV9o=
@@ -3562,7 +3569,7 @@ https-browserify@^1.0.0:
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
   integrity sha1-7AbBDgo0wPL68Zn3/X/Hj//QPHM=
 
-hyperid@^2.0.2:
+hyperid@2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/hyperid/-/hyperid-2.0.2.tgz#f56d898f810f0b737c81475803ea4b63515a92d5"
   integrity sha512-D4krJfLyXZTZZibL5CEUJzyL001ah1TOK+5wlsra9eMnb0RtMZcBRkblxVRDwzB9VIm9PKXJ4zZtAisFCKuuKQ==
@@ -4808,7 +4815,7 @@ mkdirp@0.5.1, mkdirp@0.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   dependencies:
     minimist "0.0.8"
 
-mobile-detect@^1.4.3:
+mobile-detect@1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/mobile-detect/-/mobile-detect-1.4.3.tgz#e436a3839f5807dd4d3cd4e081f7d3a51ffda2dd"
   integrity sha512-UaahPNLllQsstHOEHAmVnTHCMQrAS9eL5Qgdi50QrYz6UgGk+Xziz2udz2GN6NYcyODcPLnasC7a7s6R2DjiaQ==
@@ -4876,10 +4883,10 @@ neo-async@^2.5.0, neo-async@^2.6.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
-next-server@8.1.1-canary.51:
-  version "8.1.1-canary.51"
-  resolved "https://registry.yarnpkg.com/next-server/-/next-server-8.1.1-canary.51.tgz#8b2cbfa63c112d30d327e59678d4990272e83ee8"
-  integrity sha512-UpwJ5aFqBHQr+7IAcp3+HxmlY6S0xf03KLvw4pqCQwsyfpNIa5sMAnRnEu//B9bArR+saEONB2icNDgGvcnfdw==
+next-server@8.1.1-canary.63:
+  version "8.1.1-canary.63"
+  resolved "https://registry.yarnpkg.com/next-server/-/next-server-8.1.1-canary.63.tgz#5cf255247c80679fb2fd62391ad31693681d5b51"
+  integrity sha512-4/eylkUKl6OH/LueBRipgaaBqgmiulWISg7a/znmWEtRJLsSKG/P2U4AOSaKwDf+Ze37vyXuEwVbKhzau1OhEA==
   dependencies:
     amp-toolbox-optimizer "1.2.0-alpha.1"
     content-type "1.0.4"
@@ -4894,10 +4901,10 @@ next-server@8.1.1-canary.51:
     send "0.16.1"
     url "0.11.0"
 
-next@8.1.1-canary.51:
-  version "8.1.1-canary.51"
-  resolved "https://registry.yarnpkg.com/next/-/next-8.1.1-canary.51.tgz#81f0ea6e7fab321e60541ef1e2331767ebf3c543"
-  integrity sha512-sdJUhdF4EkMl1HWEf+qnSZ7/E0AZMTz54JLwB9GeN/ueLDki1ygfOS9K5IySIiEQBAJWCYLxvsgeEza50ABH7g==
+next@8.1.1-canary.63:
+  version "8.1.1-canary.63"
+  resolved "https://registry.yarnpkg.com/next/-/next-8.1.1-canary.63.tgz#3729f848918d0229be4c75a5cc7c8a487cfe8fa2"
+  integrity sha512-DxeNMry9gBQYAmASHDpDrrm6a8bIwj2CgyNOYfA4fUu0gs8ysCFugS7aalZss27Zw3FhkBmaExXr27XuT/Vtow==
   dependencies:
     "@babel/core" "7.4.5"
     "@babel/plugin-proposal-class-properties" "7.4.4"
@@ -4925,7 +4932,7 @@ next@8.1.1-canary.51:
     launch-editor "2.2.1"
     loader-utils "1.2.3"
     mkdirp "0.5.1"
-    next-server "8.1.1-canary.51"
+    next-server "8.1.1-canary.63"
     prop-types "15.7.2"
     prop-types-exact "1.2.0"
     react-error-overlay "5.1.6"
@@ -5793,7 +5800,7 @@ react-error-overlay@5.1.6:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
   integrity sha512-X1Y+0jR47ImDVr54Ab6V9eGk0Hnu7fVWGeHQSOXHf/C2pF9c6uy3gef8QUeuUiWlNb0i08InPSE5a/KJzNzw1Q==
 
-react-github-corner@^2.3.0:
+react-github-corner@2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-github-corner/-/react-github-corner-2.3.0.tgz#73ab17324b670c9cd955567b09663d385cfb05ef"
   integrity sha512-yVh8wtAfVA5CQYn8ygyxtsuCMoyiSEBVnzQJ3ynyWxZ1BzT2MHop4baZn/PnUnU9Yh8mwhLS5Y1RVxM5zNotGw==
@@ -6367,6 +6374,11 @@ source-map@^0.5.0, source-map@^0.5.6:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
   integrity sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=
+
+sourcemap-codec@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/sourcemap-codec/-/sourcemap-codec-1.4.4.tgz#c63ea927c029dd6bd9a2b7fa03b3fec02ad56e9f"
+  integrity sha512-CYAPYdBu34781kLHkaW3m6b/uUSyMOC2R61gcYMWooeuaGtjof86ZA/8T+qVPPt7np1085CR9hmMGrySwEc8Xg==
 
 spdx-correct@^3.0.0:
   version "3.1.0"
