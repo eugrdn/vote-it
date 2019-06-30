@@ -1,16 +1,18 @@
-import app from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
 import {config} from './config';
 
 export class Firebase {
-  public auth: app.auth.Auth;
-  public database: app.database.Database;
+  public auth: firebase.auth.Auth;
+  public database: firebase.database.Database;
 
   constructor() {
-    const appInitialized = app.apps.length;
-    const firebase = appInitialized ? app.app() : app.initializeApp(config);
+    const appInitialized = firebase.apps.length;
+    const app = appInitialized ? firebase.app() : firebase.initializeApp(config);
 
-    this.auth = firebase.auth();
-    this.database = firebase.database();
+    this.auth = app.auth();
+    this.database = app.database();
   }
 }
 
