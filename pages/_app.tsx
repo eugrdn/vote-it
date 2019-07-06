@@ -2,11 +2,11 @@ import React from 'react';
 import MobileDetect from 'mobile-detect';
 import App, {AppContext, Container} from 'next/app';
 import Head from 'next/head';
-import {Href} from '../src/constants';
-import {AppLayout} from '../src/layout';
 import {CustomProps, FromSSR} from '../src/typings/nextjs';
+import {Href} from '~/constants';
+import {AppLayout} from '~/layout';
 import {GradientBackground} from '~/components/styled';
-import {FirebaseProvider} from '~/hooks/common';
+import {FirebaseProvider, AuthProvider} from '~/hooks/common';
 
 class MyApp extends App<CustomProps> {
   static async getInitialProps({Component, ctx}: AppContext) {
@@ -58,11 +58,13 @@ class MyApp extends App<CustomProps> {
           <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
         </Head>
         <FirebaseProvider>
-          <LayoutWrapper>
-            <AppLayout md={fromSSR.md}>
-              <Component {...pageProps} fromSSR={fromSSR} />
-            </AppLayout>
-          </LayoutWrapper>
+          <AuthProvider>
+            <LayoutWrapper>
+              <AppLayout md={fromSSR.md}>
+                <Component {...pageProps} fromSSR={fromSSR} />
+              </AppLayout>
+            </LayoutWrapper>
+          </AuthProvider>
         </FirebaseProvider>
       </Container>
     );

@@ -14,6 +14,19 @@ export class Firebase {
     this.auth = app.auth();
     this.database = app.database();
   }
-}
 
-export default Firebase;
+  async getPathValueOnce<T>(path: string) {
+    return await this.getRefValueOnce<T>(this.database.ref(path));
+  }
+
+  async getRefValueOnce<T>(ref: firebase.database.Reference | firebase.database.Query) {
+    try {
+      const snapshot = await ref.once('value');
+      const value = await snapshot.val();
+      return value as T;
+    } catch (error) {
+      console.error(error.message);
+    }
+    return undefined;
+  }
+}

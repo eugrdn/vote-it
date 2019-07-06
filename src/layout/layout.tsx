@@ -1,30 +1,42 @@
-import {useRouter} from 'next/router';
 import React, {useState} from 'react';
+import {useRouter} from 'next/router';
 import {Responsive} from 'semantic-ui-react';
 import {NavBarDesktop, NavBarMobile} from './nav-bar';
 import {getWidthFactory} from './utils/getWidthFactory';
-import {Href, SiteMap} from '~/constants';
+import {Href, NavMap, MenuItem} from '~/constants';
 import {MobileDetect} from '~/typings/nextjs';
 import {GithubCorner} from '~/components/styled';
+import {useAuth} from '~/hooks/common';
+import {User} from '~/typings/models';
 
 type AppLayoutProps = {md: MobileDetect};
+
+const isAuthRequired = (user?: User) => ({auth}: MenuItem) =>
+  user && !user.isAnonymous ? auth === undefined || auth : !auth;
 
 export const AppLayout: React.FC<AppLayoutProps> = ({children, md: {isMobile}}) => {
   const {
     asPath,
     query: {id},
   } = useRouter();
+  const [user] = useAuth();
+
+  const map: NavMap = {
+    leftItems: NavMap.leftItems.filter(isAuthRequired(user)),
+    rightItems: NavMap.rightItems.filter(isAuthRequired(user)),
+  };
   const isVotePage = asPath === Href.Vote.replace('$id', id);
   const getWidth = getWidthFactory(isMobile);
 
+  const layouts = [MobileLayout, DesktopLayout];
+
   return (
     <>
-      <MobileLayout withNav={!isVotePage} getWidth={getWidth}>
-        {children}
-      </MobileLayout>
-      <DesktopLayout withNav={!isVotePage} getWidth={getWidth}>
-        {children}
-      </DesktopLayout>
+      {layouts.map(Layout => (
+        <Layout key={Layout.toString()} withNav={!isVotePage} getWidth={getWidth} navMap={map}>
+          {children}
+        </Layout>
+      ))}
     </>
   );
 };
@@ -32,9 +44,10 @@ export const AppLayout: React.FC<AppLayoutProps> = ({children, md: {isMobile}}) 
 type DeviceLayoutProps = {
   getWidth(): number;
   withNav: boolean;
+  navMap: NavMap;
 };
 
-const MobileLayout: React.FC<DeviceLayoutProps> = ({children, getWidth, withNav}) => {
+const MobileLayout: React.FC<DeviceLayoutProps> = ({children, getWidth, withNav, navMap}) => {
   const [isOpened, setOpened] = useState(false);
 
   const handlePusher = () => {
@@ -47,7 +60,7 @@ const MobileLayout: React.FC<DeviceLayoutProps> = ({children, getWidth, withNav}
 
   const jsx = withNav ? (
     <NavBarMobile
-      {...SiteMap}
+      {...navMap}
       onPusherClick={handlePusher}
       onToggle={handleToggle}
       visible={isOpened}
@@ -65,11 +78,11 @@ const MobileLayout: React.FC<DeviceLayoutProps> = ({children, getWidth, withNav}
   );
 };
 
-const DesktopLayout: React.FC<DeviceLayoutProps> = ({children, getWidth, withNav}) => {
+const DesktopLayout: React.FC<DeviceLayoutProps> = ({children, getWidth, withNav, navMap}) => {
   const {asPath} = useRouter();
   const isHomePage = asPath === Href.Home;
   const jsx = withNav ? (
-    <NavBarDesktop {...SiteMap} sticky={!isHomePage}>
+    <NavBarDesktop {...navMap} sticky={!isHomePage}>
       {children}
     </NavBarDesktop>
   ) : (
