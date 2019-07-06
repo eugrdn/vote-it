@@ -33,18 +33,16 @@ export class Auth {
 
     const existedUser = this.getFirebaseUser();
     const anonymous = await this.getAnonymousUser();
-    debugger;
+
     const user: Partial<Models.User> = {
       ...existedUser,
       ...anonymous,
     };
 
     await this.signout();
+
     const credentials = await this.firebase.auth.createUserWithEmailAndPassword(email, password);
-
     if (credentials.user) {
-      console.log('poihali');
-
       await Promise.all([
         await this.saveCustomUser(credentials.user.uid, user),
         await credentials.user.updateProfile({displayName}),
