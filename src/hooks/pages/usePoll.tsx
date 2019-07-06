@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react';
-import {useFirebase} from '../common';
+import {useDatabase} from '../common';
 import {Poll, Option} from '~/typings/models';
+import {UpdateRemote} from '~/typings/common';
 
 type MaybePoll = Poll | undefined;
-type UpdateRemote<T> = (value: Partial<T>) => Promise<Error | null>;
 
 type UpdateFns = {
   updatePollRemote: UpdateRemote<Poll>;
@@ -15,7 +15,7 @@ type Utils = {
 };
 
 export function usePoll(pollId: string): [MaybePoll, UpdateFns, Utils] {
-  const {database} = useFirebase();
+  const database = useDatabase();
   const [poll, setPoll] = useState<MaybePoll>();
   const pollRef = database.ref(`/polls/${pollId}`);
 

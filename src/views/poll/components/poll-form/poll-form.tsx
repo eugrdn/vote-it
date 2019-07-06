@@ -10,6 +10,7 @@ import {
   OptionActionType,
 } from './reducer';
 import {uniqueId} from '~/utils';
+import {useUser} from '~/hooks/common';
 
 type PollFormProps = {
   poll?: Partial<Poll>;
@@ -32,6 +33,7 @@ export const PollForm: React.FC<PollFormProps> = ({poll = defaultPoll, readonly,
   const [description, setDescription] = useState(poll.description);
   const [options, dispatch] = useReducer(optionsReducer, poll.options || initialState);
   const optionsList = Object.values(options);
+  const [user] = useUser();
 
   const optionsLength = optionsList.length;
   const filledOptions = optionsList.filter(v => v.title);
@@ -70,7 +72,7 @@ export const PollForm: React.FC<PollFormProps> = ({poll = defaultPoll, readonly,
         id,
         topic,
         options,
-        author: defaultPoll.views,
+        author: defaultPoll.views || (user && user.id),
         description,
         private: isPrivate,
         views: defaultPoll.views,

@@ -16,7 +16,7 @@ export const HomeSegment = styled(Segment).attrs({
 export const HomeContainer = styled(Container).attrs({
   textAlign: 'center',
 })`
-  font-size: 3rem;
+  font-size: 2.8rem;
   flex: 1;
   display: flex !important;
   flex-direction: column;

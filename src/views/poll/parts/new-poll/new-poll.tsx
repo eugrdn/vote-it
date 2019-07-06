@@ -1,25 +1,32 @@
-import Router from 'next/router';
 import React, {useState} from 'react';
+import Router from 'next/router';
 import {Container, Grid, Modal} from 'semantic-ui-react';
 import * as Atoms from './atoms';
 import {PollForm} from '../../components';
 import {Href} from '~/constants';
-import {useFirebase} from '~/hooks/common';
+import {useDatabase, useUser} from '~/hooks/common';
 import {Poll} from '~/typings/models';
 
 export const NewPoll: React.FC<{}> = () => {
-  const {database} = useFirebase();
+  const database = useDatabase();
+  const [user, {updateCreatedPolls, updateParticipatedPolls}] = useUser();
   const [error, setError] = useState<Error | null>(null);
 
   async function handleSubmit(poll: Poll) {
+    const pollId = poll.id;
     const pollsRef = database.ref(`/polls`);
     const newPollRef = pollsRef.child(poll.id);
+    const {created = [], part = []} = (user && user.polls) || {};
 
     try {
-      await newPollRef.set(poll);
-      Router.push(Href.Poll.replace('$id', poll.id));
+      await Promise.all([
+        newPollRef.set(poll),
+        updateCreatedPolls(created.concat(pollId)),
+        updateParticipatedPolls(part.concat(pollId)),
+      ]);
+      await Router.push(Href.Poll.replace('$id', pollId));
     } catch (error) {
-      error.stack = poll.id;
+      error.stack = pollId;
       setError(error);
     }
   }
