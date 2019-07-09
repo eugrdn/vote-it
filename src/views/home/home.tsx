@@ -24,7 +24,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         <Header as="h1" size="large" inverted>
           Vote it!
         </Header>
-        <Link href={Href.Poll} as={Href.Poll.replace('$id', NEW_PAGE_ID)} passHref>
+        <Link href={Href.Poll} as={Href.Poll.replace('[id]', NEW_PAGE_ID)} passHref>
           <Atoms.CreatePollLink isMobile={isMobile}>
             Create a poll
             <Icon name="arrow right" />

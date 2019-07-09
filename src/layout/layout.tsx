@@ -25,7 +25,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({children, md: {isMobile}}) 
     leftItems: NavMap.leftItems.filter(isAuthRequired(user)),
     rightItems: NavMap.rightItems.filter(isAuthRequired(user)),
   };
-  const isVotePage = asPath === Href.Vote.replace('$id', id);
+  const isVotePage = asPath === Href.Vote.replace('[id]', id);
   const getWidth = getWidthFactory(isMobile);
 
   const layouts = [MobileLayout, DesktopLayout];
