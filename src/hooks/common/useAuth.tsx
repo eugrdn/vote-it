@@ -16,7 +16,8 @@ export const AuthProvider: React.FC<{}> = ({children}) => {
       if (user && !firebaseUser) {
         setUser(undefined);
       } else if (!user && firebaseUser) {
-        setUser(await auth.getSignedUser(firebaseUser.uid));
+        const signedUser = await auth.getSignedUser(firebaseUser.uid, firebaseUser.isAnonymous);
+        setUser(signedUser);
       } else if (!user && !firebaseUser && !auth.getSigning()) {
         await auth.signupAnonymously();
       }
