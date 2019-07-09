@@ -61,8 +61,8 @@ export class Auth {
     return await this.firebase.auth.signInWithEmailAndPassword(email, password);
   }
 
-  async getSignedUser(id: string): Promise<Models.User | undefined> {
-    const customUser = await this.getCustomUser(id);
+  async getSignedUser(id: string, isAnonymous: boolean): Promise<Models.User | undefined> {
+    const customUser = isAnonymous ? await this.getAnonymousUser() : await this.getCustomUser(id)
     const firebaseUser = this.getFirebaseUser();
     if (customUser && firebaseUser) {
       return {...customUser, ...firebaseUser};
