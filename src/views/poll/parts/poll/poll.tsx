@@ -24,7 +24,7 @@ export const Poll: React.FC<PollPageProps> = ({pollId, isMobile}) => {
   }, [poll && poll.id]);
 
   if (poll) {
-    const href = Href.Vote.replace('$id', poll.id);
+    const href = Href.Vote.replace('[id]', poll.id);
     const linkToVote = window ? `${url(window)}${href}` : '';
     const optionsList = getOptionsAsList();
     const totalVotes = optionsList.reduce((acc, v) => acc + v.votes, 0);

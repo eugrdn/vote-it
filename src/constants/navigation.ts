@@ -21,8 +21,8 @@ export type NavMap = {
 export enum Href {
   Home = '/',
   Polls = '/polls',
-  Poll = '/poll/$id',
-  Vote = '/poll/$id/vote',
+  Poll = '/poll/[id]',
+  Vote = '/poll/[id]/vote',
 }
 
 export const NEW_PAGE_ID = 'new';

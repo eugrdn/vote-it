@@ -24,7 +24,7 @@ export const NewPoll: React.FC<{}> = () => {
         updateCreatedPolls(created.concat(pollId)),
         updateParticipatedPolls(part.concat(pollId)),
       ]);
-      await Router.push(Href.Poll.replace('$id', pollId));
+      await Router.push(Href.Poll.replace('[id]', pollId));
     } catch (error) {
       error.stack = pollId;
       setError(error);
