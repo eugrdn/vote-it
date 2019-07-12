@@ -15,7 +15,7 @@ const config = {
     autoExport: true,
     dynamicRouting: true,
   },
-  publicRuntimeConfig: {
+  env: {
     APP_ID: process.env.APP_ID,
     API_KEY: process.env.API_KEY,
     AUTH_DOMAIN: process.env.AUTH_DOMAIN,
