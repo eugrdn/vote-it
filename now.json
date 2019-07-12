@@ -3,10 +3,21 @@
   "name": "vote-it",
   "alias": "vote-it",
   "public": false,
-  "builds": [
-    {
-      "src": "next.config.js",
-      "use": "@now/next"
-    }
-  ]
+  "build": {
+    "env": {
+      "APP_ID": "@firebase-app-id",
+      "API_KEY": "@firebase-api-key",
+      "AUTH_DOMAIN": "@firebase-auth-domain",
+      "DATABASE_URL": "@firebase-database-url",
+      "MESSAGING_SENDER_ID": "@firebase-massaging-sender-id",
+      "PROJECT_ID": "@firebase-project-id",
+      "STORAGE_BUCKET": "@firebase-storage-bucket"
+    },
+    "builds": [
+      {
+        "src": "next.config.js",
+        "use": "@now/next"
+      }
+    ]
+  }
 }

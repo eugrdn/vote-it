@@ -12,8 +12,6 @@
   },
   "dependencies": {
     "@zeit/next-css": "1.0.1",
-    "@zeit/webpack-asset-relocator-loader": "^0.6.2",
-    "dotenv": "8.0.0",
     "emojis": "1.0.10",
     "file-loader": "4.0.0",
     "fingerprintjs2": "2.1.0",
@@ -40,6 +38,7 @@
     "@types/styled-components": "^4.1.16",
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-styled-components": "^1.10.0",
+    "dotenv": "^8.0.0",
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
     "ts-jest": "^24.0.2",
