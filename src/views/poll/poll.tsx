@@ -17,5 +17,5 @@ export const PollPage: React.FC<PollPageProps> = ({
     query: {id},
   } = useRouter();
 
-  return id === NEW_PAGE_ID ? <NewPoll /> : <Poll pollId={id} isMobile={isMobile} />;
+  return id === NEW_PAGE_ID ? <NewPoll /> : <Poll pollId={id.toString()} isMobile={isMobile} />;
 };

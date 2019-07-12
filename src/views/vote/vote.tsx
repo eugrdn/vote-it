@@ -7,7 +7,7 @@ import {useUser} from '~/hooks/common';
 // TODO animation after render and click
 export const VotePage: React.SFC<{}> = () => {
   const router = useRouter();
-  const [poll, {updateOptionRemote}, {getOptionsAsList}] = usePoll(router.query.id);
+  const [poll, {updateOptionRemote}, {getOptionsAsList}] = usePoll(router.query.id.toString());
   const [user, {updateVoteForPoll}, {hasPoll, getVotedValue}] = useUser();
   const canVote = user && poll && hasPoll(user, poll.id); // TODO: use 404
   const vote = user && poll && getVotedValue(user, poll.id);

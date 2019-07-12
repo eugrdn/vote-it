@@ -1,4 +1,8 @@
 const path = require('path');
+const withPlugins = require('next-compose-plugins');
+const withCSS = require('@zeit/next-css');
+const withAssets = require('./next/withAssets');
+const withAliases = require('./next/withAliases');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -6,14 +10,7 @@ if (!isProduction) {
   require('dotenv').config();
 }
 
-module.exports = {
-  webpack(config) {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '~': path.resolve('./src'),
-    };
-    return config;
-  },
+const config = {
   experimental: {
     autoExport: true,
     dynamicRouting: true,
@@ -29,3 +26,5 @@ module.exports = {
     githubLink: process.env.GITHUB_LINK,
   },
 };
+
+module.exports = withPlugins([withAliases, withCSS, withAssets], config);
