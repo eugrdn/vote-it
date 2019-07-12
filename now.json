@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "name": "vote-it",
+  "alias": "vote-it",
+  "public": false,
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@now/next"
+    }
+  ]
+}
