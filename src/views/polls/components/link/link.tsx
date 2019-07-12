@@ -10,7 +10,7 @@ type LinkProps = {
 };
 
 export const Link: React.FC<LinkProps> = ({id, href, icon}) => (
-  <NextLink href={href} as={href.replace('$id', id)} passHref>
+  <NextLink href={href} as={href.replace('[id]', id)} passHref>
     <Button as="a" icon={icon} />
   </NextLink>
 );

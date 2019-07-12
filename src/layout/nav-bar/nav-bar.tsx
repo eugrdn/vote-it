@@ -1,12 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import {Button, Container, Icon, Menu, Sidebar} from 'semantic-ui-react';
+import {Container, Icon, Menu, Sidebar} from 'semantic-ui-react';
 import * as Atoms from './atoms';
-import {MenuItem, SiteMap} from '~/constants';
+import {AuthButton} from './components';
+import {MenuItem, NavMap} from '~/constants';
 import {Page} from '~/components/styled';
 
-type NavBarMobileProps = SiteMap & {
+type NavBarMobileProps = NavMap & {
   onPusherClick(): void;
   onToggle(): void;
   visible: boolean;
@@ -32,14 +33,18 @@ export const NavBarMobile: React.FC<NavBarMobileProps> = ({
         <Atoms.SidebarToggler onClick={onToggle}>
           <Icon name="sidebar" size="big" />
         </Atoms.SidebarToggler>
-        <Menu.Menu position="right">{rightItems.map(renderAuthButton())}</Menu.Menu>
+        <Menu.Menu position="right">
+          {rightItems.map(v => (
+            <AuthButton key={v.type} {...v} />
+          ))}
+        </Menu.Menu>
       </Menu>
       <Page>{children}</Page>
     </Atoms.FullHeightPusher>
   </Sidebar.Pushable>
 );
 
-type NavBarDesktopProps = SiteMap & {
+type NavBarDesktopProps = NavMap & {
   sticky: boolean;
 };
 
@@ -54,7 +59,11 @@ export const NavBarDesktop: React.FC<NavBarDesktopProps> = ({
       <>
         <Menu size="huge" fixed="top">
           {leftItems.map(renderLink)}
-          <Menu.Menu position="right">{rightItems.map(renderAuthButton())}</Menu.Menu>
+          <Menu.Menu position="right">
+            {rightItems.map(v => (
+              <AuthButton key={v.type} {...v} />
+            ))}
+          </Menu.Menu>
         </Menu>
         <Page>{children}</Page>
       </>
@@ -66,7 +75,11 @@ export const NavBarDesktop: React.FC<NavBarDesktopProps> = ({
       <Container>
         <Atoms.HomeMenu>
           {leftItems.map(renderLink)}
-          <Menu.Menu position="right">{rightItems.map(renderAuthButton(true))}</Menu.Menu>
+          <Menu.Menu position="right">
+            {rightItems.map(v => (
+              <AuthButton key={v.type} {...v} inverted />
+            ))}
+          </Menu.Menu>
         </Atoms.HomeMenu>
       </Container>
       {children}
@@ -74,19 +87,13 @@ export const NavBarDesktop: React.FC<NavBarDesktopProps> = ({
   );
 };
 
-const renderLink = ({href, asHref, key, ...item}: MenuItem) => {
+const renderLink = ({href, asHref, type, ...item}: MenuItem) => {
   const {asPath} = useRouter();
   const active = asPath === href;
 
   return (
-    <Link key={key} href={href!} as={asHref} passHref>
+    <Link key={type} href={href!} as={asHref} passHref>
       <Menu.Item as="a" {...item} active={active} />
     </Link>
   );
 };
-
-const renderAuthButton = (inverted = false) => ({key, content, ...item}: MenuItem) => (
-  <Atoms.AuthButton key={key} {...item} fitted>
-    <Button content={content} size="tiny" inverted={inverted} compact basic />
-  </Atoms.AuthButton>
-);

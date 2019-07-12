@@ -3,10 +3,11 @@ import {MenuItemProps} from 'semantic-ui-react';
 export type MenuItem = Partial<MenuItemProps> & {
   href?: string;
   asHref?: string;
-  key: string;
+  type: string;
+  auth?: boolean;
 };
 
-export type SiteMap = {
+export type NavMap = {
   leftItems: MenuItem[];
   rightItems: MenuItem[];
 };
@@ -20,16 +21,20 @@ export type SiteMap = {
 export enum Href {
   Home = '/',
   Polls = '/polls',
-  Poll = '/poll/$id',
-  Vote = '/poll/$id/vote',
+  Poll = '/poll/[id]',
+  Vote = '/poll/[id]/vote',
 }
 
 export const NEW_PAGE_ID = 'new';
 
-export const SiteMap: SiteMap = {
+export const NavMap: NavMap = {
   leftItems: [
-    {href: Href.Home, asHref: Href.Home, content: 'Home', key: 'home'},
-    {href: Href.Polls, asHref: Href.Polls, content: 'Polls', key: 'polls'},
+    {type: 'home', content: 'Home', href: Href.Home, asHref: Href.Home},
+    {type: 'polls', content: 'Polls', href: Href.Polls, asHref: Href.Polls},
   ],
-  rightItems: [{content: 'Log In', key: 'login'}, {content: 'Sign Up', key: 'signup'}],
+  rightItems: [
+    {type: 'login', content: 'Log In', auth: false},
+    {type: 'signup', content: 'Sign Up', auth: false},
+    {type: 'signout', content: 'Sign Out', auth: true},
+  ],
 };

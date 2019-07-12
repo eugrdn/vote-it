@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import {Button, Segment} from 'semantic-ui-react';
 
-export const VoteButton = styled(Button)`
+export const VoteButton = styled.button`
   flex-grow: 1;
   flex-basis: 0;
   width: 100%;
@@ -44,10 +43,10 @@ export const VoteButton = styled(Button)`
   }
 `;
 
-export const MediaContainer = styled(Segment)`
+export const MediaContainer = styled.div`
   display: flex;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100wh;
 
   @media (max-width: 500px) {
     flex-direction: column;

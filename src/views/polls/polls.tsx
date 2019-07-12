@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {Container} from 'semantic-ui-react';
 import {Table} from './components';
 import {Poll} from '~/typings/models';
-import {useFirebase} from '~/hooks/common';
+import {useDatabase} from '~/hooks/common';
 
 export const PollsPage: React.FC<{}> = () => {
-  const {database} = useFirebase();
+  const database = useDatabase();
   const [polls, setPolls] = useState<Poll[]>([]);
   const pollRef = database.ref('/polls');
 
