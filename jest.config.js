@@ -11,6 +11,6 @@ module.exports = {
     },
   },
   moduleNameMapper: {
-    '\\.(css|less)$': '<rootDir>/__mocks__/mocks.js',
+    '^~(.*)$': '<rootDir>/src$1',
   },
 };
