@@ -1,2 +1,2 @@
-export const url = ({location: {protocol, hostname, port}}: Window) =>
+export const url = ({protocol, hostname, port}: Partial<Location>) =>
   `${protocol}//${hostname}:${port}`;
