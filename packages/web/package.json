@@ -8,7 +8,7 @@
     "start": "next start",
     "build": "next build",
     "test": "jest",
-    "lint": "tslint --project tsconfig.json"
+    "lint": "echo TODO: add lint"
   },
   "dependencies": {
     "@zeit/next-css": "1.0.1",

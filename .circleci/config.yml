@@ -7,7 +7,8 @@ jobs:
     working_directory: ~/vote-it/packages/web
 
     steps:
-      - checkout
+      - checkout:
+          path: ~/vote-it
 
       - restore_cache:
           keys:
