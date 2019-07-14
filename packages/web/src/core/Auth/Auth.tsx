@@ -18,13 +18,15 @@ export class Auth {
   async signupAnonymously() {
     const user = await this.getAnonymousUser();
 
-    if (user) {
-      await this.firebase.database.ref(`users/${user.id}`).remove();
-    }
+    await this.signout();
 
     const credentials = await this.firebase.auth.signInAnonymously();
     if (credentials.user) {
       await this.saveCustomUser(credentials.user.uid, user);
+    }
+
+    if (user) {
+      await this.firebase.database.ref(`users/${user.id}`).remove();
     }
   }
 
@@ -62,7 +64,7 @@ export class Auth {
   }
 
   async getSignedUser(id: string, isAnonymous: boolean): Promise<Models.User | undefined> {
-    const customUser = isAnonymous ? await this.getAnonymousUser() : await this.getCustomUser(id)
+    const customUser = isAnonymous ? await this.getAnonymousUser() : await this.getCustomUser(id);
     const firebaseUser = this.getFirebaseUser();
     if (customUser && firebaseUser) {
       return {...customUser, ...firebaseUser};

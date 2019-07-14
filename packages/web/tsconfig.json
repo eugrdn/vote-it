@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "noEmit": true,
     "jsx": "preserve",
     "lib": ["dom", "es2017"],
     "module": "esnext",

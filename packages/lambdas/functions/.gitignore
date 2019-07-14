@@ -1,3 +1,6 @@
 ## Compiled JavaScript files
 **/*.js
 **/*.js.map
+
+## creds
+serviceAccountKey.json

@@ -6,7 +6,7 @@
   "description": "Voting app",
   "workspaces": [
     "packages/web",
-    "packages/firebase/functions"
+    "packages/lambdas/functions"
   ],
   "repository": {
     "type": "git",
