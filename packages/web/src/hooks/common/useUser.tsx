@@ -16,13 +16,11 @@ type UpdateFns = {
 type Utils = {
   getVotedValue(user: Models.User, pollId: string): string | undefined;
   hasPoll(user: Models.User, pollId: string): boolean;
+  hasAccess(user: Models.User, poll: Models.Poll): boolean;
 };
 
 function getVotedValue(user: Models.User, pollId: string) {
-  if (hasPoll(user, pollId)) {
-    return user.votes && user.votes[pollId];
-  }
-  return undefined;
+  return user.votes && user.votes[pollId];
 }
 
 function hasPoll(user: Models.User, pollId: string) {
@@ -31,6 +29,10 @@ function hasPoll(user: Models.User, pollId: string) {
     return (created || part).some(poll => poll === pollId);
   }
   return false;
+}
+
+function hasAccess(user: Models.User, poll: Models.Poll) {
+  return !poll.private || hasPoll(user, poll.id);
 }
 
 export function useUser(): [MaybeUser, UpdateFns, Utils] {
@@ -49,6 +51,7 @@ export function useUser(): [MaybeUser, UpdateFns, Utils] {
   const utils: Utils = {
     getVotedValue,
     hasPoll,
+    hasAccess,
   };
 
   useEffect(() => {

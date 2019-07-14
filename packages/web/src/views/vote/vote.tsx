@@ -8,10 +8,10 @@ import {useUser} from '~/hooks/common';
 export const VotePage: React.SFC<{}> = () => {
   const router = useRouter();
   const [poll, {updateOptionRemote}, {getOptionsAsList}] = usePoll(router.query.id.toString());
-  const [user, {updateVoteForPoll}, {hasPoll, getVotedValue}] = useUser();
-  const canVote = user && poll && hasPoll(user, poll.id); // TODO: use 404
-  const vote = user && poll && getVotedValue(user, poll.id);
-
+  const [user, {updateVoteForPoll}, {hasAccess, getVotedValue}] = useUser();
+  const canVote = user && poll && hasAccess(user, poll); // TODO: use 404
+  const vote = canVote && getVotedValue(user!, poll!.id);
+  
   const handleVote = (id: string) => async () => {
     const incOptionVotes = updateOptionRemote({id, votes: poll!.options[id].votes + 1});
     const decOptionVotes =
