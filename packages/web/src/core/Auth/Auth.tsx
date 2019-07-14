@@ -46,9 +46,9 @@ export class Auth {
     const credentials = await this.firebase.auth.createUserWithEmailAndPassword(email, password);
     if (credentials.user) {
       await Promise.all([
-        await this.saveCustomUser(credentials.user.uid, user),
-        await credentials.user.updateProfile({displayName}),
-        await this.firebase.database.ref(`users/${user.id}`).remove(),
+        this.saveCustomUser(credentials.user.uid, user),
+        credentials.user.updateProfile({displayName}),
+        this.firebase.database.ref(`users/${user.id}`).remove(),
       ]);
     }
 
