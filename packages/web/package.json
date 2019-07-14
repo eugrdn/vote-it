@@ -1,0 +1,47 @@
+{
+  "name": "@vote-it/web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": false,
+  "scripts": {
+    "dev": "next",
+    "start": "next start",
+    "build": "next build",
+    "test": "jest",
+    "lint": "echo TODO: add lint"
+  },
+  "dependencies": {
+    "@zeit/next-css": "1.0.1",
+    "emojis": "1.0.10",
+    "file-loader": "4.0.0",
+    "fingerprintjs2": "2.1.0",
+    "firebase": "6.1.1",
+    "hyperid": "2.0.2",
+    "mobile-detect": "1.4.3",
+    "next": "9.0.1",
+    "next-compose-plugins": "2.2.0",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
+    "react-github-corner": "2.3.0",
+    "semantic-ui-css": "2.4.1",
+    "semantic-ui-react": "0.87.2",
+    "styled-components": "5.0.0-beta.5",
+    "url-loader": "2.0.1"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "@types/fingerprintjs2": "^2.0.0",
+    "@types/jest": "^24.0.15",
+    "@types/next": "^8.0.5",
+    "@types/react": "^16.8.19",
+    "@types/react-dom": "^16.8.4",
+    "@types/styled-components": "^4.1.16",
+    "babel-jest": "^24.8.0",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "babel-plugin-styled-components": "^1.10.0",
+    "dotenv": "^8.0.0",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
+  }
+}

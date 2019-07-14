@@ -4,10 +4,11 @@ jobs:
     docker:
       - image: circleci/node:10.16.0
 
-    working_directory: ~/vote-it
+    working_directory: ~/vote-it/packages/web
 
     steps:
-      - checkout
+      - checkout:
+          path: ~/vote-it
 
       - restore_cache:
           keys:

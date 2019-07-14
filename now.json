@@ -12,12 +12,18 @@
       "MESSAGING_SENDER_ID": "@firebase-massaging-sender-id",
       "PROJECT_ID": "@firebase-project-id",
       "STORAGE_BUCKET": "@firebase-storage-bucket"
-    },
-    "builds": [
-      {
-        "src": "next.config.js",
-        "use": "@now/next"
-      }
-    ]
-  }
+    }
+  },
+  "builds": [
+    {
+      "src": "packages/web/next.config.js",
+      "use": "@now/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "packages/web/$1"
+    }
+  ]
 }
