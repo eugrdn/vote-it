@@ -30,7 +30,7 @@ export const SignupModal: React.FC<ModalProps> = ({open, title, onClose}) => {
             label="Password"
             value={password}
             onChange={e => setPassword(e.target.value)}
-            // type="password"
+            type="password"
             required
           />
           <Form.Button
