@@ -100,12 +100,15 @@ export class Auth {
     return undefined;
   }
 
-  private async getAnonymousUser() {
+  private async getAnonymousUser(tries = 1): Promise<Models.CustomUser | undefined> {
     const murmur = await this.getOrCreateFingerprint();
     if (murmur) {
       const userWithFingerprintRef = await this.getAnonymousUserRef(murmur);
       if (userWithFingerprintRef) {
-        return await this.firebase.getRefValueOnce<Models.CustomUser>(userWithFingerprintRef);
+        const value = await this.firebase.getRefValueOnce<Models.CustomUser>(
+          userWithFingerprintRef,
+        );
+        return !value && tries < 2 ? await this.getAnonymousUser(tries++) : value; // TODO: remove hack
       }
     }
     return undefined;

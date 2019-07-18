@@ -27,7 +27,7 @@ const defaultPoll: Partial<Poll> = {
 };
 
 export const PollForm: React.FC<PollFormProps> = ({poll = defaultPoll, readonly, onSubmit}) => {
-  const [id] = useState(poll.id || uniqueId());
+  const id = poll.id || uniqueId();
   const [topic, setTopic] = useState(poll.topic);
   const [isPrivate, setPrivate] = useState(poll.private);
   const [description, setDescription] = useState(poll.description);
