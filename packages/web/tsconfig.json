@@ -1,6 +1,17 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "isolatedModules": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "jsx": "preserve",
     "lib": ["dom", "es2017"],
@@ -11,5 +22,7 @@
     "paths": {
       "~/*": ["./src/*"]
     }
-  }
+  },
+  "include": ["./src", "./pages"],
+  "exclude": ["./node_modules"]
 }

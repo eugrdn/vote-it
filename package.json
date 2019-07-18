@@ -4,6 +4,9 @@
   "private": true,
   "main": "packages/web/index.js",
   "description": "Voting app",
+  "scripts": {
+    "clean": "rm -rf node_modules packages/web/node_modules packages/web/.next packages/lambdas/functions/node_modules packages/lambdas/functions/lib"
+  },
   "workspaces": [
     "packages/web",
     "packages/lambdas/functions"
