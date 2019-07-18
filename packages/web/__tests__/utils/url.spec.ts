@@ -10,4 +10,13 @@ describe('Utils: url', () => {
 
     expect(url(locationMock)).toBe('http://localhost:3000');
   });
+
+  it('should handle port lack correctly', () => {
+    const locationMock = {
+      protocol: 'http:',
+      hostname: 'localhost',
+    };
+
+    expect(url(locationMock)).toBe('http://localhost');
+  });
 });
