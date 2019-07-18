@@ -3,9 +3,9 @@
   "name": "@vote-it/functions",
   "scripts": {
     "lint": "tslint --project tsconfig.json",
-    "build": "tsc",
-    "serve": "yarn build && firebase serve --only functions",
-    "shell": "yarn build && firebase functions:shell",
+    "compile": "tsc",
+    "serve": "yarn compile && firebase serve --only functions",
+    "shell": "yarn compile && firebase functions:shell",
     "start": "yarn shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"

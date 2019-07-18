@@ -8,6 +8,7 @@
     "start": "next start",
     "build": "next build",
     "test": "jest",
+    "compile": "tsc",
     "lint": "echo TODO: add lint"
   },
   "dependencies": {
