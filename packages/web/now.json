@@ -16,14 +16,8 @@
   },
   "builds": [
     {
-      "src": "packages/web/next.config.js",
+      "src": "next.config.js",
       "use": "@now/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "packages/web/$1"
     }
   ]
 }
