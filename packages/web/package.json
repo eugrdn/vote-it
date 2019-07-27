@@ -13,11 +13,11 @@
   },
   "dependencies": {
     "@zeit/next-css": "1.0.1",
-    "@zeit/webpack-asset-relocator-loader": "0.6.2",
+    "@zeit/webpack-asset-relocator-loader": "0.5.8",
     "emojis": "1.0.10",
     "file-loader": "4.0.0",
     "fingerprintjs2": "2.1.0",
-    "firebase": "6.1.1",
+    "firebase": "6.0.2",
     "hyperid": "2.0.2",
     "mobile-detect": "1.4.3",
     "next": "9.0.1",
