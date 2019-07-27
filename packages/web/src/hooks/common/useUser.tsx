@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react';
 import {useAuth} from './useAuth';
 import {useDatabase} from '../common';
+import {Maybe, UpdateRemote} from '~/typings/common';
 import * as Models from '~/typings/models';
-import {UpdateRemote} from '~/typings/common';
 
-type MaybeUser = Models.User | undefined;
+type MaybeUser = Maybe<Models.User>;
 
 type UpdateFns = {
   updateCustomUserRemote: UpdateRemote<Models.CustomUser>;
@@ -38,14 +38,14 @@ function hasAccess(user: Models.User, poll: Models.Poll) {
 export function useUser(): [MaybeUser, UpdateFns, Utils] {
   const [customUser, setCustomUser] = useState<MaybeUser>();
   const [user] = useAuth();
-  const database = useDatabase();
-  const userRef = user && database.ref(`/users/${user.id}`);
+  const db = useDatabase();
+  const userRef = user && db.firestore.collection('users').doc(user.id);
 
   const updateFns: UpdateFns = {
     updateCustomUserRemote: user => userRef!.update(user),
-    updateCreatedPolls: ids => userRef!.child(`/polls/created`).update(ids),
-    updateParticipatedPolls: ids => userRef!.child(`/polls/part`).update(ids),
-    updateVoteForPoll: votes => userRef!.child(`/votes`).update(votes),
+    updateCreatedPolls: ids => userRef!.update(db.path('polls', 'created'), ids),
+    updateParticipatedPolls: ids => userRef!.update(db.path('polls', 'part'), ids),
+    updateVoteForPoll: votes => userRef!.update('votes', votes),
   };
 
   const utils: Utils = {
@@ -54,11 +54,12 @@ export function useUser(): [MaybeUser, UpdateFns, Utils] {
     hasAccess,
   };
 
-  useEffect(() => {
-    userRef && userRef.on('value', snapshot => setCustomUser(snapshot.val()));
-
-    return () => userRef && userRef.off();
-  }, [user && user.id]);
+  useEffect(
+    () =>
+      userRef &&
+      userRef.onSnapshot(snapshot => setCustomUser(db.getSnapshotData<MaybeUser>(snapshot))),
+    [user && user.id],
+  );
 
   return [customUser, updateFns, utils];
 }

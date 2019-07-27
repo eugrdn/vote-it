@@ -3,4 +3,6 @@ export type Action<T, P> = {
   payload: P;
 };
 
-export type UpdateRemote<T> = (value: Partial<T>) => Promise<Error | null>;
+export type Maybe<T> = T | undefined;
+
+export type UpdateRemote<T> = (value: Partial<T>) => Promise<void>;

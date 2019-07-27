@@ -1,32 +1,38 @@
-import firebase from 'firebase/app';
+import firebase, {auth, firestore} from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/database';
+import 'firebase/firestore';
 import {config} from './config';
+import {Maybe} from '~/typings/common';
 
 export class Firebase {
-  public auth: firebase.auth.Auth;
-  public database: firebase.database.Database;
+  public auth: auth.Auth;
+  public firestore: firestore.Firestore;
 
   constructor() {
     const appInitialized = firebase.apps.length;
     const app = appInitialized ? firebase.app() : firebase.initializeApp(config);
 
     this.auth = app.auth();
-    this.database = app.database();
+    this.firestore = app.firestore();
   }
 
-  async getPathValueOnce<T>(path: string) {
-    return await this.getRefValueOnce<T>(this.database.ref(path));
+  path(...props: string[]) {
+    return new firestore.FieldPath(...props);
   }
 
-  async getRefValueOnce<T>(ref: firebase.database.Reference | firebase.database.Query) {
-    try {
-      const snapshot = await ref.once('value');
-      const value = await snapshot.val();
-      return value as T;
-    } catch (error) {
-      console.error(error.message);
+  async getQueryValue<T>(
+    querySelector: (
+      firestore: firestore.Firestore,
+    ) => firestore.Query | firestore.DocumentReference,
+  ): Promise<T extends Array<any> ? T | [] : Maybe<T>> {
+    const snapshot = await querySelector(this.firestore).get();
+    return this.getSnapshotData(snapshot);
+  }
+
+  getSnapshotData<T = any>(snapshot: firestore.DocumentSnapshot | firestore.QuerySnapshot): T {
+    if ('docs' in snapshot) {
+      return snapshot.docs.map(v => v.data()) as any;
     }
-    return undefined;
+    return snapshot.data() as any;
   }
 }

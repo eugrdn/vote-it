@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react';
 import {useDatabase} from '../common';
 import {Poll, Option} from '~/typings/models';
-import {UpdateRemote} from '~/typings/common';
+import {Maybe, UpdateRemote} from '~/typings/common';
 
-type MaybePoll = Poll | undefined;
+type MaybePoll = Maybe<Poll>;
 
 type UpdateFns = {
   updatePollRemote: UpdateRemote<Poll>;
@@ -15,24 +15,27 @@ type Utils = {
 };
 
 export function usePoll(pollId: string): [MaybePoll, UpdateFns, Utils] {
-  const database = useDatabase();
+  const db = useDatabase();
   const [poll, setPoll] = useState<MaybePoll>();
-  const pollRef = database.ref(`/polls/${pollId}`);
+  const pollRef = db.firestore.collection('polls').doc(pollId);
 
   const updateFns: UpdateFns = {
     updatePollRemote: poll => pollRef.update(poll),
-    updateOptionRemote: option => pollRef.child(`/options/${option.id}`).update(option),
+    updateOptionRemote: option =>
+      pollRef.update(db.path('options', option.id!, 'votes'), option.votes),
   };
 
   const utils: Utils = {
     getOptionsAsList: () => (poll ? Object.values(poll.options) : []),
   };
 
-  useEffect(() => {
-    pollRef.on('value', snapshot => setPoll(snapshot.val()));
-
-    return () => pollRef.off();
-  }, [pollId]);
+  useEffect(
+    () =>
+      pollRef.onSnapshot(snapshot => {
+        setPoll(db.getSnapshotData<MaybePoll>(snapshot));
+      }),
+    [pollId],
+  );
 
   return [poll, updateFns, utils];
 }
