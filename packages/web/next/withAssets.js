@@ -12,6 +12,19 @@ const withAssets = makeWith({
         },
       },
     });
+    config.module.rules.unshift({
+      test: /\.(m?js|node)$/,
+      parser: {amd: false},
+      use: {
+        loader: '@zeit/webpack-asset-relocator-loader',
+        options: {
+          outputAssetBase: 'assets',
+          existingAssetNames: [],
+          wrapperCompatibility: true,
+          escapeNonAnalyzableRequires: true,
+        },
+      },
+    });
   },
 });
 

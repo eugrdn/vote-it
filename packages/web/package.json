@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@zeit/next-css": "1.0.1",
+    "@zeit/webpack-asset-relocator-loader": "0.6.2",
     "emojis": "1.0.10",
     "file-loader": "4.0.0",
     "fingerprintjs2": "2.1.0",
