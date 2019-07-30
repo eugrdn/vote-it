@@ -11,7 +11,7 @@ export const VotePage: React.SFC<{}> = () => {
   const [user, {updateVoteForPoll}, {hasAccess, getVotedValue}] = useUser();
   const canVote = user && poll && hasAccess(user, poll); // TODO: use 404
   const vote = canVote && getVotedValue(user!, poll!.id);
-  
+
   const handleVote = (id: string) => async () => {
     const incOptionVotes = updateOptionRemote({id, votes: poll!.options[id].votes + 1});
     const decOptionVotes =

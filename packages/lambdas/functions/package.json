@@ -1,11 +1,11 @@
 {
-  "version": "0.0.1",
+  "version": "1.0.0",
   "name": "@vote-it/functions",
   "scripts": {
     "lint": "tslint --project tsconfig.json",
-    "compile": "tsc",
-    "serve": "yarn compile && firebase serve --only functions",
-    "shell": "yarn compile && firebase functions:shell",
+    "build": "tsc",
+    "serve": "yarn build && firebase serve --only functions",
+    "shell": "yarn build && firebase functions:shell",
     "start": "yarn shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"

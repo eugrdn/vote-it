@@ -5,21 +5,23 @@ import {Poll} from '~/typings/models';
 import {useDatabase} from '~/hooks/common';
 
 export const PollsPage: React.FC<{}> = () => {
-  const database = useDatabase();
+  const db = useDatabase();
   const [polls, setPolls] = useState<Poll[]>([]);
-  const pollRef = database.ref('/polls');
+
+  async function updatePolls() {
+    const publicPolls = await db.getQueryValue<Poll[]>(fs =>
+      fs.collection('polls').where('private', '==', false),
+    );
+    setPolls(publicPolls);
+  }
 
   useEffect(() => {
-    pollRef.on('value', snapshot => setPolls(Object.values(snapshot.val())));
-
-    return () => pollRef.off();
+    updatePolls();
   }, []);
 
-  // TODO: made on server after Firestore integration
-  const publicPolls = polls.filter(v => !v.private);
   return (
     <Container>
-      <Table polls={publicPolls} />
+      <Table polls={polls} />
     </Container>
   );
 };

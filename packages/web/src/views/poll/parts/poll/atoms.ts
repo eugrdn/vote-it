@@ -23,6 +23,7 @@ export const PollStatisticColumn = styled(Grid.Column).attrs({
 export const GoToPollLink = styled(Button).attrs({
   as: 'a',
   primary: true,
+  target: '_blank',
 })`
   font-size: 1.4rem;
   display: block !important;

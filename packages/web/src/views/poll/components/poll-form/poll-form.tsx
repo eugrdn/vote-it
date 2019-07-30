@@ -36,6 +36,7 @@ export const PollForm: React.FC<PollFormProps> = ({poll = defaultPoll, readonly,
   const [user] = useUser();
 
   const optionsLength = optionsList.length;
+  const hasEqualOptions = new Set(optionsList.map(v => v.title)).size !== optionsLength;
   const filledOptions = optionsList.filter(v => v.title);
   const optionsReady = filledOptions.length >= 1;
   const pollReady = optionsReady && topic;
@@ -108,6 +109,9 @@ export const PollForm: React.FC<PollFormProps> = ({poll = defaultPoll, readonly,
                 onChange={handleOptionChange(id)}
                 required={!optionsReady || !title}
                 readOnly={readonly}
+                error={filledOptions.some(
+                  v => v.id !== id && v.title.trim().toLowerCase() === title.trim().toLowerCase(),
+                )}
                 width={readonly ? 16 : 14}
               />
               {!readonly && (
@@ -141,7 +145,13 @@ export const PollForm: React.FC<PollFormProps> = ({poll = defaultPoll, readonly,
       </Atoms.PrivateGroupField>
 
       {!readonly && (
-        <Form.Button type="submit" content="Create Poll" onClick={createPoll} primary />
+        <Form.Button
+          type="submit"
+          content="Create Poll"
+          onClick={createPoll}
+          disabled={hasEqualOptions}
+          primary
+        />
       )}
     </Form>
   );

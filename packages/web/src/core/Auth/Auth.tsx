@@ -8,30 +8,30 @@ type AdditionalInfo = {
 };
 
 export class Auth {
-  constructor(private firebase: Firebase) {}
-
-  private signing = false;
+  constructor(private firebase: Firebase, private _signing = false) {}
 
   onAuthStateChanged = this.firebase.auth.onAuthStateChanged.bind(this.firebase.auth);
 
   // TODO: sync if previously user was signed not anonymously
   async signupAnonymously() {
-    const user = await this.getAnonymousUser();
+    const customUser = await this.getAnonymousUser();
 
     await this.signout();
 
     const credentials = await this.firebase.auth.signInAnonymously();
     if (credentials.user) {
-      await this.saveCustomUser(credentials.user.uid, user);
+      await this.saveCustomUser(credentials.user.uid, customUser);
     }
-
-    if (user) {
-      await this.firebase.database.ref(`users/${user.id}`).remove();
+    if (customUser) {
+      await this.firebase.firestore
+        .collection('users')
+        .doc(customUser.id)
+        .delete();
     }
   }
 
   async signup(email: string, password: string, {displayName}: AdditionalInfo) {
-    this.setSigning(true);
+    this.signing = true;
 
     const existedUser = this.getFirebaseUser();
     const anonymous = await this.getAnonymousUser();
@@ -48,11 +48,14 @@ export class Auth {
       await Promise.all([
         this.saveCustomUser(credentials.user.uid, user),
         credentials.user.updateProfile({displayName}),
-        this.firebase.database.ref(`users/${user.id}`).remove(),
+        this.firebase.firestore
+          .collection('users')
+          .doc(user.id)
+          .delete(),
       ]);
     }
 
-    this.setSigning(false);
+    this.signing = false;
   }
 
   async signout() {
@@ -72,12 +75,12 @@ export class Auth {
     return undefined;
   }
 
-  setSigning(status: boolean) {
-    this.signing = status;
+  set signing(status: boolean) {
+    this._signing = status;
   }
 
-  getSigning() {
-    return this.signing;
+  get signing() {
+    return this._signing;
   }
 
   private getFirebaseUser(): Models.FirebaseUser | undefined {
@@ -85,31 +88,22 @@ export class Auth {
   }
 
   private async getCustomUser(id: string) {
-    return this.firebase.getPathValueOnce<Models.CustomUser>(`/users/${id}`);
-  }
-
-  private async getAnonymousUserRef(murmur: string) {
-    // TODO: change for optimized query after migration to Firestore
-    const users = await this.firebase.getPathValueOnce<Models.CustomUsers>('/users');
-    if (users) {
-      const anonUser = Object.values(users).find(v => v.fingerprint === murmur);
-      if (anonUser) {
-        return this.firebase.database.ref('/users').child(anonUser.id).ref;
-      }
-    }
-    return undefined;
+    return await this.firebase.getQueryValue<Models.CustomUser>(fs =>
+      fs.collection('users').doc(id),
+    );
   }
 
   private async getAnonymousUser(tries = 1): Promise<Models.CustomUser | undefined> {
     const murmur = await this.getOrCreateFingerprint();
     if (murmur) {
-      const userWithFingerprintRef = await this.getAnonymousUserRef(murmur);
-      if (userWithFingerprintRef) {
-        const value = await this.firebase.getRefValueOnce<Models.CustomUser>(
-          userWithFingerprintRef,
-        );
-        return !value && tries < 2 ? await this.getAnonymousUser(tries++) : value; // TODO: remove hack
-      }
+      const [user] = await this.firebase.getQueryValue<Models.CustomUser[]>(fs =>
+        fs
+          .collection('users')
+          .where('fingerprint', '==', murmur)
+          .limit(1),
+      )!;
+
+      return !user && tries < 2 ? await this.getAnonymousUser(tries + 1) : user; // TODO: remove hack
     }
     return undefined;
   }
@@ -130,7 +124,7 @@ export class Auth {
   }
 
   private async saveCustomUser(id: string, user?: Partial<Models.CustomUser>) {
-    const userRef = this.firebase.database.ref('users').child(id);
+    const userRef = this.firebase.firestore.collection('users').doc(id);
     await userRef.set({
       id,
       ...(await this.persistDataBetweenUsers(user)),

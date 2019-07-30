@@ -1,8 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {auth, Auth} from '~/core';
 import {User} from '~/typings/models';
+import {Maybe} from '~/typings/common';
 
-type MaybeUser = User | undefined;
+type MaybeUser = Maybe<User>;
 
 type AuthTuple = [MaybeUser, Auth];
 
@@ -18,7 +19,7 @@ export const AuthProvider: React.FC<{}> = ({children}) => {
       } else if (!user && firebaseUser) {
         const signedUser = await auth.getSignedUser(firebaseUser.uid, firebaseUser.isAnonymous);
         setUser(signedUser);
-      } else if (!user && !firebaseUser && !auth.getSigning()) {
+      } else if (!user && !firebaseUser && !auth.signing) {
         await auth.signupAnonymously();
       }
     });

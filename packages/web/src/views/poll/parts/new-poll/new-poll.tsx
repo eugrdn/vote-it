@@ -8,14 +8,13 @@ import {useDatabase, useUser} from '~/hooks/common';
 import {Poll} from '~/typings/models';
 
 export const NewPoll: React.FC<{}> = () => {
-  const database = useDatabase();
+  const db = useDatabase();
   const [user, {updateCreatedPolls, updateParticipatedPolls}] = useUser();
   const [error, setError] = useState<Error | null>(null);
 
   async function handleSubmit(poll: Poll) {
     const pollId = poll.id;
-    const pollsRef = database.ref(`/polls`);
-    const newPollRef = pollsRef.child(poll.id);
+    const newPollRef = db.firestore.collection('polls').doc(poll.id);
     const {created = [], part = []} = (user && user.polls) || {};
 
     try {
