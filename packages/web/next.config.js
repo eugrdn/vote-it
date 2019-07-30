@@ -18,7 +18,7 @@ const config = {
   target: 'serverless',
   publicRuntimeConfig: 0, // TODO: update after https://github.com/zeit/next.js/issues/7909 resolution
   env: {
-    APP_ID: process.env.APP_ID,
+    API_KEY: process.env.API_KEY,
     AUTH_DOMAIN: process.env.AUTH_DOMAIN,
     PROJECT_ID: process.env.PROJECT_ID,
   },
