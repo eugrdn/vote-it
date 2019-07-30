@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useAuth} from './useAuth';
 import {useDatabase} from '../common';
-import {Maybe, UpdateRemote} from '~/typings/common';
+import {UpdateRemote} from '~/typings/common';
 import * as Models from '~/typings/models';
 
 type MaybeUser = Maybe<Models.User>;
@@ -14,7 +14,7 @@ type UpdateFns = {
 };
 
 type Utils = {
-  getVotedValue(user: Models.User, pollId: string): string | undefined;
+  getVotedValue(user: Models.User, pollId: string): Maybe<string>;
   hasPoll(user: Models.User, pollId: string): boolean;
   hasAccess(user: Models.User, poll: Models.Poll): boolean;
 };

@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useDatabase} from '../common';
 import {Poll, Option} from '~/typings/models';
-import {Maybe, UpdateRemote} from '~/typings/common';
+import {UpdateRemote} from '~/typings/common';
 
 type MaybePoll = Maybe<Poll>;
 

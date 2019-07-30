@@ -1,9 +1,10 @@
-import {Auth} from './Auth';
-import {Firebase} from './Firebase';
+import {AuthService} from './auth';
+import {FirebaseService} from './firebase';
 
-export * from './Auth';
-export * from './Firebase';
+export * from './auth';
+export * from './firebase';
 
-const firebase = new Firebase();
-const auth = new Auth(firebase);
+const firebase = new FirebaseService();
+const auth = new AuthService(firebase);
+
 export {firebase, auth};

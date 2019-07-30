@@ -6,27 +6,29 @@ import {PollForm} from '../../components';
 import {Href} from '~/constants';
 import {useDatabase, useUser} from '~/hooks/common';
 import {Poll} from '~/typings/models';
+import {FirebaseValidationError} from '~/core/error';
 
 export const NewPoll: React.FC<{}> = () => {
   const db = useDatabase();
   const [user, {updateCreatedPolls, updateParticipatedPolls}] = useUser();
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<Maybe<Error>>(undefined);
 
   async function handleSubmit(poll: Poll) {
     const pollId = poll.id;
-    const newPollRef = db.firestore.collection('polls').doc(poll.id);
     const {created = [], part = []} = (user && user.polls) || {};
 
     try {
       await Promise.all([
-        newPollRef.set(poll),
+        db.firestore
+          .collection('polls')
+          .doc(poll.id)
+          .set(poll),
         updateCreatedPolls(created.concat(pollId)),
         updateParticipatedPolls(part.concat(pollId)),
       ]);
       await Router.push(Href.Poll.replace('[id]', pollId));
     } catch (error) {
-      error.stack = pollId;
-      setError(error);
+      setError(new FirebaseValidationError('Invalid update request', error.message, error.code));
     }
   }
 
@@ -40,7 +42,7 @@ export const NewPoll: React.FC<{}> = () => {
           </Grid.Column>
         </Grid.Row>
       </Grid>
-      <Modal size="small" open={!!error} onClose={() => setError(null)}>
+      <Modal size="small" open={!!error} onClose={() => setError(undefined)}>
         <Modal.Header>{error && error.stack}</Modal.Header>
         <Modal.Content>
           <p>{error && error.message}</p>

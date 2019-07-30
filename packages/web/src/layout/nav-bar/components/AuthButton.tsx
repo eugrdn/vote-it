@@ -28,7 +28,7 @@ export const AuthButton: React.FC<MenuItem> = ({
               compact
             />
           </Atoms.AuthButton>
-          <LoginModal open={open} title={content} onClose={() => setOpen(false)} />
+          <LoginModal open={open} title="Welcome back!" onClose={() => setOpen(false)} />
         </>
       );
     case 'signup':
@@ -43,7 +43,7 @@ export const AuthButton: React.FC<MenuItem> = ({
               compact
             />
           </Atoms.AuthButton>
-          <SignupModal open={open} title={content} onClose={() => setOpen(false)} />
+          <SignupModal open={open} title="Welcome, friend!" onClose={() => setOpen(false)} />
         </>
       );
     case 'signout':
