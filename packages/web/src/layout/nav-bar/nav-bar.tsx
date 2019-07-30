@@ -92,7 +92,7 @@ const renderLink = ({href, asHref, type, ...item}: MenuItem) => {
   const active = asPath === href;
 
   return (
-    <Link key={type} href={href!} as={asHref} passHref>
+    <Link key={type} href={href} as={asHref} passHref>
       <Menu.Item as="a" {...item} active={active} />
     </Link>
   );

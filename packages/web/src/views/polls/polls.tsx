@@ -9,9 +9,10 @@ export const PollsPage: React.FC<{}> = () => {
   const [polls, setPolls] = useState<Poll[]>([]);
 
   async function updatePolls() {
-    const publicPolls = await db.getQueryValue<Poll[]>(fs =>
-      fs.collection('polls').where('private', '==', false),
-    );
+    const publicPolls =
+      (await db.getQueryValue<Poll[]>(fs =>
+        fs.collection('polls').where('private', '==', false),
+      )) || [];
     setPolls(publicPolls);
   }
 

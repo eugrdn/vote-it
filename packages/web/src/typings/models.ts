@@ -22,17 +22,13 @@ export type CustomUsers = Record<FirebaseUID | Fingerprint, User>;
 export type CustomUser = {
   id: FirebaseUID;
   parentRef: FirebaseUID;
-  fingerprint: Fingerprint;
-  isAnonymous?: boolean;
-  /**
-   * As soon as Realtime DB can't store fields with empty values using ? prop
-   * TODO: remove after migration to Firestore
-   */
-  polls?: {
+  fingerprint: Fingerprint | null; // needed for anon users
+  isAnonymous: boolean;
+  polls: {
     created: Id[];
-    part: Id[];
+    part: Id[]; // TODO: check
   };
-  votes?: {
+  votes: {
     [pollId: string]: Id;
   };
 };

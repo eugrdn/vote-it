@@ -1,11 +1,10 @@
 import React, {useContext} from 'react';
-import {firebase} from '~/core';
-import {Firebase} from '~/core/Firebase';
+import {firebase, FirebaseService} from '~/core';
 
-const DatabaseContext = React.createContext<Firebase>(firebase);
+const DatabaseContext = React.createContext<FirebaseService>(firebase);
 
 export const FirebaseProvider: React.FC<{}> = ({children}) => (
   <DatabaseContext.Provider value={firebase}>{children}</DatabaseContext.Provider>
 );
 
-export const useDatabase = () => useContext<Firebase>(DatabaseContext);
+export const useDatabase = () => useContext<FirebaseService>(DatabaseContext);

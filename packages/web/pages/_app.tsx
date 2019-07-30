@@ -9,7 +9,7 @@ import {GradientBackground} from '~/components/styled';
 import {FirebaseProvider, AuthProvider} from '~/hooks/common';
 import 'semantic-ui-css/semantic.min.css';
 
-class MyApp extends App<CustomProps> {
+class VoteItApp extends App<CustomProps> {
   static async getInitialProps({Component, ctx}: AppContext) {
     let pageProps = {};
 
@@ -68,4 +68,4 @@ class MyApp extends App<CustomProps> {
   }
 }
 
-export default MyApp;
+export default VoteItApp;

@@ -1,30 +1,31 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {auth, Auth} from '~/core';
+import {auth, AuthService} from '~/core';
+import {useDatabase} from '~/hooks/common/useDatabase';
 import {User} from '~/typings/models';
-import {Maybe} from '~/typings/common';
 
 type MaybeUser = Maybe<User>;
 
-type AuthTuple = [MaybeUser, Auth];
+type AuthTuple = [MaybeUser, AuthService];
 
 const AuthContext = React.createContext<AuthTuple>([undefined, auth]);
 
 export const AuthProvider: React.FC<{}> = ({children}) => {
   const [user, setUser] = useState<MaybeUser>();
+  const db = useDatabase();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async firebaseUser => {
-      if (user && !firebaseUser) {
-        setUser(undefined);
-      } else if (!user && firebaseUser) {
-        const signedUser = await auth.getSignedUser(firebaseUser.uid, firebaseUser.isAnonymous);
-        setUser(signedUser);
-      } else if (!user && !firebaseUser && !auth.signing) {
-        await auth.signupAnonymously();
-      }
-    });
-    return () => unsubscribe();
-  }, [user && user.id]);
+  useEffect(
+    () =>
+      auth.onAuthStateChanged(async firebaseUser => {
+        if (!firebaseUser && !user) {
+          await auth.signupAnonymously();
+        } else if (firebaseUser && (!user || user.id !== firebaseUser.uid)) {
+          setUser(await db.getUser());
+        } else if (!firebaseUser && user) {
+          setUser(undefined);
+        }
+      }),
+    [user && user.id],
+  );
 
   return <AuthContext.Provider value={[user, auth]}>{children}</AuthContext.Provider>;
 };
