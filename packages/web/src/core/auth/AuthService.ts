@@ -1,5 +1,4 @@
 import {FirebaseService} from '../firebase';
-import {FirebaseUserInfo} from '~/typings/models';
 
 export class AuthService {
   constructor(private firebaseService: FirebaseService) {}
@@ -21,7 +20,7 @@ export class AuthService {
     }
   }
 
-  async signup(email: string, password: string, userInfo: Partial<FirebaseUserInfo>) {
+  async signup(email: string, password: string, userInfo: any = {}) {
     const [prevUser, credentials] = await Promise.all([
       this.firebaseService.getUser(),
       this.firebaseService.auth.createUserWithEmailAndPassword(email, password),

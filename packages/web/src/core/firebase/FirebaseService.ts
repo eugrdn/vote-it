@@ -1,17 +1,14 @@
-import firebase, {auth, firestore} from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-
+import Firebase from 'firebase/app';
 import {config} from './config';
 import * as Models from '~/typings/models';
 import {getOrCreateFingerprint} from '~/utils/fingerprint';
 
 export type Error = firebase.FirebaseError;
 export class FirebaseService {
-  public auth: auth.Auth;
-  public firestore: firestore.Firestore;
+  public auth: Firebase.auth.Auth;
+  public firestore: Firebase.firestore.Firestore;
 
-  constructor() {
+  constructor(firebase: typeof Firebase) {
     const appInitialized = firebase.apps.length;
     const app = appInitialized ? firebase.app() : firebase.initializeApp(config);
 
@@ -38,10 +35,6 @@ export class FirebaseService {
     return undefined;
   }
 
-  async getCustomUserById(id: string) {
-    return await this.getQueryValue<Models.CustomUser>(fs => fs.collection('users').doc(id));
-  }
-
   async getCustomUserByFingerprint(tries = 1): Promise<Maybe<Models.CustomUser>> {
     const murmur = await getOrCreateFingerprint();
     if (murmur) {
@@ -56,6 +49,10 @@ export class FirebaseService {
       return !user && tries < 2 ? await this.getCustomUserByFingerprint(tries + 1) : user; // TODO: remove hack (return user)
     }
     return undefined;
+  }
+
+  async getCustomUserById(id: string) {
+    return await this.getQueryValue<Models.CustomUser>(fs => fs.collection('users').doc(id));
   }
 
   async createCustomUser(
@@ -86,21 +83,23 @@ export class FirebaseService {
 
   async getQueryValue<T>(
     querySelector: (
-      firestore: firestore.Firestore,
-    ) => firestore.Query | firestore.DocumentReference,
+      firestore: Firebase.firestore.Firestore,
+    ) => Firebase.firestore.Query | Firebase.firestore.DocumentReference,
   ): Promise<T extends Array<any> ? Maybe<T | []> : Maybe<T>> {
     const snapshot = await querySelector(this.firestore).get();
     return this.getSnapshotData(snapshot);
   }
 
-  getSnapshotData<T = any>(snapshot: firestore.DocumentSnapshot | firestore.QuerySnapshot): T {
+  getSnapshotData<T = any>(
+    snapshot: Firebase.firestore.DocumentSnapshot | Firebase.firestore.QuerySnapshot,
+  ): T {
     if ('docs' in snapshot) {
-      return snapshot.docs.map(v => v.data()) as any;
+      return (snapshot.docs.map(v => v.data()) as any) || undefined;
     }
-    return snapshot.data() as any;
+    return (snapshot.data() as any) || undefined;
   }
 
   path(...props: string[]) {
-    return new firestore.FieldPath(...props);
+    return new Firebase.firestore.FieldPath(...props);
   }
 }
