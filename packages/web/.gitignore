@@ -3,3 +3,14 @@
 
 # ui
 semantic
+
+# cypress
+cypress.env.json
+cypress/config.json
+cypress/screenshots
+cypress/videos
+cypress/logs
+
+# firebase
+serviceAccount.json
+firebase.config.json

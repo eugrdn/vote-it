@@ -1,11 +1,9 @@
-const path = require('path');
 const withPlugins = require('next-compose-plugins');
 const withCSS = require('@zeit/next-css');
 const withAssets = require('./next/withAssets');
 const withAliases = require('./next/withAliases');
 
 const isProduction = process.env.NODE_ENV === 'production';
-
 if (!isProduction) {
   require('dotenv').config();
 }

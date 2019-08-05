@@ -1,10 +1,10 @@
 import firebase from 'firebase';
-import {FirebaseService} from '../../src/core/firebase';
+import {FirebaseService} from '~/core/firebase';
 
 jest.mock('firebase');
 jest.mock('~/utils/fingerprint');
 
-describe.only('Core: FirebaseService', () => {
+describe('Core: FirebaseService', () => {
   let sut: FirebaseService;
 
   beforeEach(() => {
