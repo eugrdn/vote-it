@@ -1,5 +1,5 @@
-const withPlugins = require('next-compose-plugins');
 const withCSS = require('@zeit/next-css');
+const withPlugins = require('next-compose-plugins');
 const withAssets = require('./next/withAssets');
 const withAliases = require('./next/withAliases');
 
@@ -13,8 +13,7 @@ const config = {
     autoExport: true,
     dynamicRouting: true,
   },
-  target: 'serverless',
-  publicRuntimeConfig: 0, // TODO: update after https://github.com/zeit/next.js/issues/7909 resolution
+  target: "experimental-serverless-trace",
   env: {
     API_KEY: process.env.API_KEY,
     AUTH_DOMAIN: process.env.AUTH_DOMAIN,
