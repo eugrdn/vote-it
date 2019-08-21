@@ -19,7 +19,8 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "packages/web/$1"
+      "dest": "packages/web/$1",
+      "continue": true
     }
   ]
 }
