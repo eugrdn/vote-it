@@ -2,7 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:10.16.0
+      - image: cypress/base:10
+        environment:
+          TERM: xterm
 
     working_directory: ~/vote-it/packages/web
 
@@ -15,7 +17,7 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
 
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
 
       - save_cache:
           paths:
@@ -26,4 +28,6 @@ jobs:
 
       - run: yarn lint
 
-      - run: yarn test
+      - run: yarn test:unit
+
+      - run: yarn test:e2e

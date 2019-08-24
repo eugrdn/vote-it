@@ -1,11 +1,4 @@
-import admin from 'firebase-admin';
-
-const serviceAccountKey = require('../serviceAccountKey.json');
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccountKey as admin.ServiceAccount),
-  databaseURL: 'https://voteit-app.firebaseio.com',
-});
+import './utils/config';
 
 import removeObsoleteUser from './removeObsoleteUser';
 

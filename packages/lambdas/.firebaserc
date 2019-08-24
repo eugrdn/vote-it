@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "voteit-app"
+    "default": "voteit-app-stg",
+    "staging": "voteit-app-stg",
+    "production": "voteit-app"
   }
 }

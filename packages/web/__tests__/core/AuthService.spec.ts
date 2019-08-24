@@ -1,6 +1,6 @@
 import firebase from 'firebase';
-import {AuthService} from '../../src/core/auth';
-import {FirebaseService} from '../../src/core/firebase';
+import {AuthService} from '~/core/auth';
+import {FirebaseService} from '~/core/firebase';
 
 jest.mock('firebase');
 jest.mock('~/utils/fingerprint');

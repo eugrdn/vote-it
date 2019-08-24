@@ -4,7 +4,6 @@ const withAssets = require('./next/withAssets');
 const withAliases = require('./next/withAliases');
 
 const isProduction = process.env.NODE_ENV === 'production';
-
 if (!isProduction) {
   require('dotenv').config();
 }
