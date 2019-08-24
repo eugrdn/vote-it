@@ -2,8 +2,6 @@
 
 package=$PWD
 
-[[ package == *"node_modules"* ]] && exit 0
-
 files=(
   "$package/common/configuration/enc-service-account:$package/serviceAccount.json"
   "$package/common/configuration/enc-cypress-env:$package/cypress.env.json"

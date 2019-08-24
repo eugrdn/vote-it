@@ -7,11 +7,12 @@ parent_path=$(
 "$parent_path/check_sign_key.sh"
 
 function encode_file() {
-  openssl aes-256-cbc -e -in $1 -out $2 -k $SIGN_KEY
+  openssl enc -in $1 -md md5 -out $2 -e -des-ede3-cbc -pass pass:$SIGN_KEY
 }
 
 function decode_file() {
-  openssl aes-256-cbc -d -in $1 -out $2 -k $SIGN_KEY
+  openssl enc -in $1 -md md5 -out $2 -d -des-ede3-cbc -pass pass:$SIGN_KEY
+
 }
 
 args=("$@")

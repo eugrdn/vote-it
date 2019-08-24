@@ -2,7 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:10.16.0
+      - image: cypress/base:8
+        environment:
+          TERM: xterm
 
     working_directory: ~/vote-it/packages/web
 
