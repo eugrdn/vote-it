@@ -2,26 +2,29 @@
   "version": "1.0.0",
   "name": "@vote-it/functions",
   "scripts": {
+    "preinstall": "chmod -R +rwx ./common/scripts",
+    "postinstall": "cd ./common/scripts && ./use_configuration.sh",
     "lint": "tslint --project tsconfig.json",
     "build": "tsc",
     "serve": "yarn build && firebase serve --only functions",
     "shell": "yarn build && firebase functions:shell",
     "start": "yarn shell",
     "deploy": "firebase deploy --only functions",
+    "use:stg": "firebase use staging",
+    "use:prod": "firebase use production",
+    "deploy:stg": "yarn use:stg && yarn deploy",
+    "deploy:prod": "yarn use:prod && yarn deploy",
     "logs": "firebase functions:log"
   },
   "main": "lib/index.js",
   "dependencies": {
     "firebase-admin": "8.2.0",
-    "firebase-functions": "3.1.0"
+    "firebase-functions": "3.2.0"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.1.6",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
   },
-  "private": true,
-  "engines": {
-    "node": "10"
-  }
+  "private": true
 }

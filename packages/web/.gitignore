@@ -13,4 +13,4 @@ cypress/logs
 
 # firebase
 serviceAccount.json
-firebase.config.json
+cypress/support/firebase.config.json

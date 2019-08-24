@@ -4,6 +4,8 @@
   "main": "index.js",
   "private": false,
   "scripts": {
+    "preinstall": "chmod -R +rwx ./common/scripts",
+    "postinstall": "cd ./common/scripts && ./use_configuration.sh",
     "dev": "next",
     "start": "next start",
     "build": "next build",
