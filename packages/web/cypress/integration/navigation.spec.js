@@ -139,7 +139,7 @@ function testAuthButtons() {
       });
     });
 
-    describe('logged/signed in', () => {
+    describe.skip('logged/signed in', () => {
       before(() => {
         cy.logout().login();
       });
