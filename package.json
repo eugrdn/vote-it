@@ -5,7 +5,8 @@
   "main": "packages/web/index.js",
   "description": "Voting app",
   "scripts": {
-    "clean": "rm -rf node_modules packages/web/node_modules packages/web/.next packages/lambdas/functions/node_modules packages/lambdas/functions/lib"
+    "preinstall": "sh ./common/scripts/check_sign_key.sh",
+    "clean": "sh ./common/scripts/clean.sh"
   },
   "workspaces": [
     "packages/web",
