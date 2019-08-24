@@ -3,7 +3,7 @@
   "name": "@vote-it/functions",
   "scripts": {
     "preinstall": "chmod -R +rwx ./common/scripts",
-    "postinstall": "sh ./common/scripts/use_configuration.sh",
+    "postinstall": "./common/scripts/use_configuration.sh",
     "lint": "tslint --project tsconfig.json",
     "build": "tsc",
     "serve": "yarn build && firebase serve --only functions",

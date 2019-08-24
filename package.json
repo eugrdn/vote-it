@@ -5,8 +5,8 @@
   "main": "packages/web/index.js",
   "description": "Voting app",
   "scripts": {
-    "preinstall": "sh ./common/scripts/check_sign_key.sh",
-    "clean": "sh ./common/scripts/clean.sh"
+    "preinstall": "./common/scripts/check_sign_key.sh",
+    "clean": "./common/scripts/clean.sh"
   },
   "workspaces": [
     "packages/web",

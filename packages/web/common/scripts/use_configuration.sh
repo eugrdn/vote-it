@@ -2,6 +2,8 @@
 
 package=$PWD
 
+[[ package == *"node_modules"* ]] && exit 0
+
 files=(
   "$package/common/configuration/enc-service-account:$package/serviceAccount.json"
   "$package/common/configuration/enc-cypress-env:$package/cypress.env.json"
@@ -10,4 +12,4 @@ files=(
   "$package/common/configuration/enc-cypress-config:$package/cypress/config.json"
 )
 
-sh "../../common/scripts/use_config_files.sh" -d "${files[@]}"
+"../../common/scripts/use_config_files.sh" -d "${files[@]}"

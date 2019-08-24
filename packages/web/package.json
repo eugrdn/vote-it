@@ -5,7 +5,7 @@
   "private": false,
   "scripts": {
     "preinstall": "chmod -R +rwx ./common/scripts",
-    "postinstall": "sh ./common/scripts/use_configuration.sh",
+    "postinstall": "./common/scripts/use_configuration.sh",
     "dev": "next",
     "start": "next start",
     "build": "next build",
