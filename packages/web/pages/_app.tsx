@@ -53,6 +53,28 @@ class VoteItApp extends App<CustomProps> {
       <Container>
         <Head>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
+          <link rel="icon" type="image/png" sizes="16x16" href="./static/icons/icon-16x16.png" />
+          <link rel="icon" type="image/png" sizes="24x24" href="./static/icons/icon-24x24.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="./static/icons/icon-32x32.png" />
+          <link rel="icon" type="image/png" sizes="64x64" href="./static/icons/icon-64x64.png" />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="128x128"
+            href="./static/icons/icon-128x128.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="256x256"
+            href="./static/icons/icon-256x256.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="512x512"
+            href="./static/icons/icon-512x512.png"
+          />
         </Head>
         <FirebaseProvider>
           <AuthProvider>
