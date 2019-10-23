@@ -52,6 +52,7 @@ class VoteItApp extends App<CustomProps> {
     return (
       <Container>
         <Head>
+          <title>Vote it!</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" key="viewport" />
           <link rel="icon" type="image/png" sizes="16x16" href="./static/icons/icon-16x16.png" />
           <link rel="icon" type="image/png" sizes="24x24" href="./static/icons/icon-24x24.png" />
